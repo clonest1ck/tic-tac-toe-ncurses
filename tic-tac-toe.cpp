@@ -5,7 +5,7 @@
 
 const char welc[] = "Hello and welcome to Tic-Tac-Toe!";
 const char help[] = "Play by writing the number for each corresponding square";
-char game;
+char* game;
 
 
 void drawBoard(int start_x, int start_y, int width, int height);
@@ -15,18 +15,14 @@ void drawfv(int start_x, int start_y, int height);
 void drawtb(int start_x, int start_y, const char text[]);
 void setup(void);
 void cleanup(void);
-void game(void);
+void gameLoop(void);
+bool gameOver(void);
+bool makeMove(int p, int i);
 
 int main(int argc, char *argv[]) {
   setup();
-  game();
-  
+  gameLoop();
   cleanup();
-  //while(1) {
-    // stdscr is a global variable created by initscr
-    // getmaxyx(stdscr, max_y, max_x);
-    
-  //}
 }
 
 void setup() {
@@ -46,8 +42,45 @@ void cleanup() {
   endwin();
 }
 
-void game() {
+void gameLoop() {
+  return;
+}
+
+bool makeMove(int p, int i) {
+  char g;
   
+  if(game[i])
+    return false;
+  
+  if(p == 1)
+    g = 'x';
+  else
+    g = 'o';
+  
+  game[i] = g;
+  return true;
+}
+
+bool gameOver() {
+  // Check horizontal lines
+  for(int i = 0; i < 9; i += 3) {
+    if(game[i] == game[i+1] && game[i] == game[i+2] && game[i])
+      return true;
+  }
+  
+  // Check vertical lines
+  for(int i = 0; i < 4; i ++) {
+    if(game[i] == game[i+3] && game[i] == game[i+6] && game[i])
+      return true;
+  }
+  
+  // Check crosses
+  if(game[0] == game[5] && game[0] == game[9] && game[0])
+    return true;
+  else if(game[3] == game[5] && game[3] == game[9] && game[3])
+    return true;
+  else
+    return false;
 }
 
 // Draw Tic-Tac-Toe Board
