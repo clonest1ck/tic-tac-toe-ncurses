@@ -3,35 +3,51 @@
 
 #define DELAY 30000
 
+const char welc[] = "Hello and welcome to Tic-Tac-Toe!";
+const char help[] = "Play by writing the number for each corresponding square";
+char game;
+
+
 void drawBoard(int start_x, int start_y, int width, int height);
 void drawfh(int start_x, int start_y, int width);
 void drawdh(int start_x, int start_y, int width);
 void drawfv(int start_x, int start_y, int height);
 void drawtb(int start_x, int start_y, const char text[]);
+void setup(void);
+void cleanup(void);
+void game(void);
 
 int main(int argc, char *argv[]) {
-  int x = 0, y = 0;
-  int max_y = 0, max_x = 0;
-  int next_x = 0;
-  int direction = 1;
-
-  initscr();
-  noecho();
-  curs_set(FALSE);
+  setup();
+  game();
   
+  cleanup();
   //while(1) {
     // stdscr is a global variable created by initscr
-    getmaxyx(stdscr, max_y, max_x);
+    // getmaxyx(stdscr, max_y, max_x);
     
-    clear();
-    drawBoard(10, 4, 13, 10);
-    drawtb(10, 2, "Hello World!");
-    refresh();
-    
-    sleep(2);
   //}
+}
+
+void setup() {
+  initscr();
+  noecho();
+  raw();
+  curs_set(FALSE);
+  drawBoard(10, 4, 13, 10);
+  drawtb(10, 2, welc);
+  refresh();
+  game = new char[9];
+  sleep(2);
+}
+
+void cleanup() {
+  sleep(2);
+  endwin();
+}
+
+void game() {
   
-  endwin(); // Restore normal terminal behavior
 }
 
 // Draw Tic-Tac-Toe Board
