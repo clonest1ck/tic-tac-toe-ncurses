@@ -3,6 +3,11 @@
 
 #define DELAY 30000
 
+void drawBoard(int start_x, int start_y, int width, int height);
+void drawfh(int start_x, int start_y, int width);
+void drawdh(int start_x, int start_y, int width);
+void drawfv(int start_x, int start_y, int height);
+
 int main(int argc, char *argv[]) {
   int x = 0, y = 0;
   int max_y = 0, max_x = 0;
@@ -18,18 +23,46 @@ int main(int argc, char *argv[]) {
     getmaxyx(stdscr, max_y, max_x);
     
     clear();
-    mvprintw(y,x,"o");
+    drawBoard(10, 10, 13, 10);
     refresh();
     
     usleep(DELAY);
-    next_x = x + direction;
-    
-    if(next_x >= max_x || next_x < 0) {
-      direction *= -1;
-    } else {
-      x+=direction;
-    }
   }
   
   endwin(); // Restore normal terminal behavior
+}
+
+// Draw Tic-Tac-Toe Board
+void drawBoard(int start_x, int start_y, int width, int height) {
+  drawfh(start_x, start_y, width);
+  
+  for(int i = 3; i < height; i += 3) {
+    drawdh(start_x, start_y + i, width);
+  }
+  
+  for(int i = 0; i < width; i += 4) {
+    drawfv(start_x + i, start_y, height);
+  }  
+}
+
+// Draw a line of '_'
+void drawfh(int start_x, int start_y, int width) {
+  for(int x = start_x; x < (start_x + width); x++) {
+    mvprintw(start_y, x, "_");
+  }
+}
+
+void drawdh(int start_x, int start_y, int width) {
+  int offset = (width - 1) / 3;
+  for(int x = (start_x + 1); x < (start_x + width - 1); x++) {
+    if(x != (start_x + offset) && x != (start_x + (2 * offset))) {
+      mvprintw(start_y, x, "_");
+    }
+  }
+}
+
+void drawfv(int start_x, int start_y, int height) {
+  for(int y = start_y + 1; y < (start_y + height); y++) {
+    mvprintw(y, start_x, "|");
+  }
 }
