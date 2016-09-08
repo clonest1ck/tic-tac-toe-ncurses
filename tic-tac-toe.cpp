@@ -7,6 +7,7 @@ void drawBoard(int start_x, int start_y, int width, int height);
 void drawfh(int start_x, int start_y, int width);
 void drawdh(int start_x, int start_y, int width);
 void drawfv(int start_x, int start_y, int height);
+void drawtb(int start_x, int start_y, const char text[]);
 
 int main(int argc, char *argv[]) {
   int x = 0, y = 0;
@@ -18,16 +19,17 @@ int main(int argc, char *argv[]) {
   noecho();
   curs_set(FALSE);
   
-  while(1) {
+  //while(1) {
     // stdscr is a global variable created by initscr
     getmaxyx(stdscr, max_y, max_x);
     
     clear();
-    drawBoard(10, 10, 13, 10);
+    drawBoard(10, 4, 13, 10);
+    drawtb(10, 2, "Hello World!");
     refresh();
     
-    usleep(DELAY);
-  }
+    sleep(2);
+  //}
   
   endwin(); // Restore normal terminal behavior
 }
@@ -65,4 +67,8 @@ void drawfv(int start_x, int start_y, int height) {
   for(int y = start_y + 1; y < (start_y + height); y++) {
     mvprintw(y, start_x, "|");
   }
+}
+
+void drawtb(int start_x, int start_y, const char text[]) {
+  mvprintw(start_y, start_x, text);
 }
