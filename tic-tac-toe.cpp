@@ -6,7 +6,7 @@
 const char welc[] = "Hello and welcome to Tic-Tac-Toe!";
 const char help[] = "Play by writing the number for each corresponding square";
 char* game;
-MEVENT event;
+//MEVENT event;
 
 void drawBoard(int start_x, int start_y, int width, int height);
 void drawfh(int start_x, int start_y, int width);
@@ -38,7 +38,7 @@ void setup() {
   game = new char[9];
   for(int i = 0; i < 9; i++)
     game[i] = ' ';
-  mousemask(ALL_MOUSE_EVENTS, NULL);
+  //mousemask(ALL_MOUSE_EVENTS, NULL);
   sleep(2);
 }
 
