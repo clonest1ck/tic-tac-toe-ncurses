@@ -1,4 +1,6 @@
 # Makefile
 CFLAGS=-lncurses
+COMP=gcc
 
-all:	tic-tac-toe : cc  -o tic-tac-toe tic-tac-toe.cpp $(CFLAGS)
+all: 
+	$(COMP)  -o tic-tac-toe tic-tac-toe.cpp $(CFLAGS)

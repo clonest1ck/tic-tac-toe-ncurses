@@ -35,9 +35,10 @@ void setup() {
   drawBoard(10, 4, 13, 10);
   drawtb(10, 2, welc);
   refresh();
-  game = new char[9];
-  for(int i = 0; i < 9; i++)
-    game[i] = ' ';
+  char g[9];
+  game = &g;
+  //for(int i = 0; i < 9; i++)
+  //  game[i] = ' ';
   //mousemask(ALL_MOUSE_EVENTS, NULL);
   sleep(2);
 }
@@ -52,25 +53,25 @@ void gameLoop() {
   int p = 1;
   int t;
   bool okm = false;
-  
+
   while(1) {
     drawtb(10, 2, "Player : Make your move!");
     t = getch();
     okm = makeMove(p, t);
-    
+
     while(!okm) {
       drawtb(10, 2, "Invalid move, try again!");
       t = getch();
       okm = makeMove(p, t);
     }
-    
+
     drawcon(10, 4);
-    
+
     if(gameOver()) {
       drawtb(10, 2, "Congraturlations Player ! You won!");
       return;
     }
-    
+
     if(p == 1)
       p = 2;
     else
@@ -84,18 +85,18 @@ bool makeMove(int p, int i) {
 
   if(game[i] != ' ')
     return false;
-  
+
   if(p == 1)
     g = 'x';
   else
     g = 'o';
-  
+
   game[i] = g;
   return true;
 }
 
 int xytoint(int x, int y, int start_x, int start_y) {
-  
+
   return 1;
 }
 
@@ -105,13 +106,13 @@ bool gameOver() {
     if(game[i] == game[i+1] && game[i] == game[i+2] && game[i] != ' ')
       return true;
   }
-  
+
   // Check vertical lines
   for(int i = 0; i < 4; i ++) {
     if(game[i] == game[i+3] && game[i] == game[i+6] && game[i] != ' ')
       return true;
   }
-  
+
   // Check crosses
   if(game[0] == game[5] && game[0] == game[9] && game[0] != ' ')
     return true;
@@ -124,14 +125,14 @@ bool gameOver() {
 // Draw Tic-Tac-Toe Board
 void drawBoard(int start_x, int start_y, int width, int height) {
   drawfh(start_x, start_y, width);
-  
+
   for(int i = 3; i < height; i += 3) {
     drawdh(start_x, start_y + i, width);
   }
-  
+
   for(int i = 0; i < width; i += 4) {
     drawfv(start_x + i, start_y, height);
-  }  
+  }
 }
 
 // Draw a line of '_'
